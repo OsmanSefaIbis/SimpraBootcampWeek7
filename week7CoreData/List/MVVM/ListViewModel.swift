@@ -34,14 +34,30 @@ class ListViewModel{
     
 }
 extension ListViewModel: ListModelProtocol{    
-    // burada conversion yapmamiz lazim
+    // burada data conversion yapmamiz lazim
     func didLiveDataFetch() {
-        // TODO:
+        // Online olarak data cekildiyse, Modelde tutulan datadan alip burada Cell Modele bu datalari aktariyoruz
+        let cellModels : [ListCellModel] = model.data.map{
+            .init(
+                imageUrl:   $0.image ?? "",
+                name:       $0.name ?? "",
+                status:     $0.status ?? "",
+                gender:     $0.gender ?? "")
+        }
+        refreshItems?(cellModels)
     }
     func didCacheDataFetch() {
-        // TODO:
+        // Offline olarak Core Datadan cekiyoruz, Modelde tutulan dataBaseData dan alip burada Cell Modele bu datalari aktariyoruz
+        let cellModels : [ListCellModel] = model.databaseData.map{
+            .init(
+                imageUrl:   $0.imageUrl ?? "",
+                name:       $0.name ?? "",
+                status:     $0.status ?? "",
+                gender:     $0.gender ?? "")
+        }
+        refreshItems?(cellModels)
     }
     func didDataCouldntFetch() {
-        // TODO:
+        onErrorDetected?("Data could not be fetched try again later")
     }
 }

@@ -41,8 +41,6 @@ class ListViewControllerTableHelper: NSObject{
         self.items = items
         tableView?.reloadData()
     }
-    
-    
 }
 
 extension ListViewControllerTableHelper: UITableViewDelegate{
@@ -60,7 +58,6 @@ extension ListViewControllerTableHelper: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! ListCell
         cell.configure(with: items[indexPath.row])
         return cell
-        
     }
 }
 
