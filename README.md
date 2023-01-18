@@ -5,5 +5,6 @@ RickAndMorty API --> https://rickandmortyapi.com/
 
 SPM --> Alamofire + KIngFisher
 
-*Notlar File*   CoreData Related
-*Commented*     MVVM Related
+*Notlar File*       CoreData Related
+
+*Commented*         MVVM Related
