@@ -79,15 +79,14 @@
 			isa = PBXGroup;
 			children = (
 				9615168E2976AEE5003BE2A5 /* Notlar */,
-				9615168D2976AEA1003BE2A5 /* List */,
+				9646FD4229785836005169FF /* Managers */,
+				9646FD4129785822005169FF /* Extensions */,
+				9646FD40297857FA005169FF /* Resources */,
+				9646FD3F297857E4005169FF /* Modules */,
 				961516762976AE4C003BE2A5 /* AppDelegate.swift */,
 				961516782976AE4C003BE2A5 /* SceneDelegate.swift */,
-				961516AA297771B2003BE2A5 /* InternetManager.swift */,
 				9615167C2976AE4D003BE2A5 /* Main.storyboard */,
 				961516842976AE4E003BE2A5 /* LaunchScreen.storyboard */,
-				961516822976AE4E003BE2A5 /* Assets.xcassets */,
-				961516872976AE4E003BE2A5 /* Info.plist */,
-				9615167F2976AE4D003BE2A5 /* week7CoreData.xcdatamodeld */,
 			);
 			path = week7CoreData;
 			sourceTree = "<group>";
@@ -136,6 +135,39 @@
 				961516A829773927003BE2A5 /* CharacterData.swift */,
 			);
 			path = APIDataModel;
+			sourceTree = "<group>";
+		};
+		9646FD3F297857E4005169FF /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				9615168D2976AEA1003BE2A5 /* List */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		9646FD40297857FA005169FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9615167F2976AE4D003BE2A5 /* week7CoreData.xcdatamodeld */,
+				961516822976AE4E003BE2A5 /* Assets.xcassets */,
+				961516872976AE4E003BE2A5 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9646FD4129785822005169FF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9646FD4229785836005169FF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				961516AA297771B2003BE2A5 /* InternetManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,7 +409,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GQM8T6BKPB;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = week7CoreData/Info.plist;
+				INFOPLIST_FILE = week7CoreData/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -405,7 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GQM8T6BKPB;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = week7CoreData/Info.plist;
+				INFOPLIST_FILE = week7CoreData/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

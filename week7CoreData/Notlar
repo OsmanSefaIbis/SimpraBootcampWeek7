@@ -52,6 +52,8 @@ AppDelegate te farkli olarak --> Core Data Stack kismi var (Projeyi olutururken 
 
 lazy var persistenContainer: NSPersistentContainer --> burada lazy ile yaratmasi demek, *** bu uygulama acildigi zaman memory de tutulmuyor demek,
     
+    Main manage object context birde private(background) manage object context var, main threadde calisan context i kullandik biz, persistentContainerin sagladigi, bu thread icerisinde git bunlari kaydet dedigin object, private manage object ile yaptiginda kullanicinin deneyimi etkilenmez, biz coredataya kaydetmeyi for loop u ile yaptik main threadde oysaki background thread ile yapmak daha saglikli
+        Bu olayin konu basligi : BatchUpdate, BatchInstall, BatchLoading
     taa ki uygulamada save context yapilana kadar, o zaman memoryde yasamaya basliyor,
     sonrasinda gelen {}() --> blogunun icinde ki kod calisiyor ve container return ediliyor sonrada kaydetme icin katman o aradaki katman olusturulmus oluyor
     lazy nin bir olayi daha var --> *** persistentContainer birdaha initialize edilemiyor *** yasam dongusu --> ( init --> memory ),
@@ -97,6 +99,54 @@ genelde lazy variable olusturulma mantigi *** --> icerisinde bir obje ureticeksi
         Bu requeste *** predicate verebiliyoruz yani istedigimiz datalarin donmesi icin logic paslayabiliyoruz, misal: id si 15 den buyuk olanlari getir gibi gibi
         
         context.fetch(request) --> try catch icinde datalari cektik Core Datadan
+        
+        InternetManager flag ini false a cekince CoreDatadan alicak datalari uygulama bu sekilde test edebilirsin.
+
+CoreData da ki verileri goruntulemek istersen tool --> *** https://cutedgesystems.com/software/liya/
+    CoreDatada ki DB simulatorun icinde bir dosyada duruyor, path ini veriyorsun sonra terminalden ac,
+    db pathini bul sonra toola ver pathi ordan DB verisini goruntule, tool icindende manipule edebiliyorsun, buradaki data encripted degil
+    
+*** Encrypted Data tutmak istiyorsan en guvenli KeyChainde tutarsin ***
+
+Genel Anlatim
+    ListViewController --> View Katmani
+    
+        TableView i koyduk
+        ViewModel instance imiz var, View de gosterileceklerin haber edilmesi icin
+        TableHelper yaptik, clean code olsun diye Controllerdaki kodlari buraya tasidik, Datasource ve Delegate extension ile burada, tableView configure, init, setup ettik burada
+        TableHelperda genel olarak --> TableView fonksiyonlarini, datasource unu, datasini handle ettigimiz yer, cell register ettik
+        Binding yaptik ViewModel View Katmani haberlesmesi icin
+    
+    ListViewModel --> View Model Katmani
+        
+        Viewden gelen interactiona gore, gerekiyorsa Model katmani ile haberlesicek, yada Model den gelicek cevabida View in istedigi tarza cevirecek, iki katman arasindaki kontrolcu araci katman diyebiliriz
+        Model instance i tanimladik, binding yapabilmemiz icin closure tanimladik, bu katmanin view modela haber verebilmesi icin delegati(conform ettigimiz) var, viewDidLoad fonksiyonu View loadlandiginda data fetch yapabilmemiz icin tanimladik
+        Modelin protocolunu conform ettik, data conversion islemini burada yapiyoruz, View a ilgili datayi vermek icin islemi burada yapiyoruz
+        
+    ListModel --> Model Katmani
+        Protokol tanimladik ViewModele delegate vasitasiyla haber verebilmesi icin
+        AppDelegate instance ina eristik --> CoreData da ki persistentContainer a erisebilmek icin
+        Canli datayi ve CoreData verilerini cachelemek icin variable tanimladik
+        FetchData fonksiyonu tanimladik, eger internet varsa fetch from api o.w retrieve from core data
+        ViewModel a data yi cektigimizi haber verebilmek icin delegate in didLiveDataFetch() fonksiyonunu kullaniyoruz
+        Haber verdikten sonrada API dan cekilen datalari CoreData ya kaydet diyoruz
+        saveToCoreData() fonksiyonu tanimladik --> yukarida acikladin
+        
+    Pagination Durumu, kullanici scrolladi page in arttigini nasil anlariz --> tableView in suanki gorunen index iyle elimizdeki datanin indexi esitse
+        bir sonraki page i cagir
+    
+    TableView da bir item a tiklandiginda izleyecegin yol, tableHelperda zaten bu itema tiklandigini Viewmodel a haber verdik (didSelectRow),
+     yani hangi indexe tiklandigi elimizde var, modelde datalar var ama modelde de sunu yapmak lazim, tiklanildiginda hangi data yi alicaz, online datami offline data mi, logic yazmak lazim buraya , viewmodelda offline data uzerinden cekiliyor adinda bir boolean flag tutabilirsin, ona gore logic isletirsin, daha guzel bir yontemde tercih edilebilir ****
+        
+        
+        
+        
+        
+        
+        
+        
+
+
     
         
     
