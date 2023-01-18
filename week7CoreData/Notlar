@@ -1,0 +1,56 @@
+Rick&Morty API
+
+        Core Data Notlari
+
+Core Data Database dosyasi projeye eklenmis durumda, tablolarin bulundugu dosyadir
+
+-Core Data nasil calisir ? --> Object Mapper, SQL DB gibi degildir
+
+Buraya veri atarken objeyi yaratip field lari dolduruyorsun sonrada save et diyorsun.
+
+Entity Mantigi var, Entity derken SQL deki Tablo mantigi gibi dusunebilirsin
+
+    Attributes dedigi sutun(column) gibi dusun, burda isimlendirip tipini belirliyorsun
+    
+        Binary Data dedigi, Core Datada istedigimizi tutabiliriz indirilmis bir image da olabilir bu, ama yavaslatiyor onerilmiyor, bunun icin kullaniyor binary data iste.
+        
+        Main Constraint olarak primary key mantiginda eklememiz gerekiyor cunku data cekildi 3 data cekildi belli bir id siralamasiyla, kullanici app kapa ac yapti yine ayni id ama farkli data geldi diyelim,
+        bu durumda id si 1 olan iki tane kaydimiz var demek oluyor bu ambiguity e sebebiyet verir ondan dolayi main constraint ekliyoruz, primary key mantigi ( tekillestirme ), ekledik constrainti diyelim,
+        ozaman ayni id ile gelen farkli data oldu diyelim bu durumda override edicek. Bildigin gibi yani the record must be unique for that field.
+    
+
+Relational mantigi yine Core Data dada var, relationship adi altinda --> tablo adini yaziyosun sonra neye gore iliski kurulucaksa belirliyorsun
+
+Contraint eklerken sag dock ta Data Model Inspector da constraint kismina tekillestirmek istedigin fieldi yaziyorsun,
+Codegen secenegide --> uygulama kapa ac yaptiginda veya Xcode ac veya clean build yaptiginda diyelim, gidiyor arka tarafta bunun (listEntity) class larini olusturuyor, yani entity icinde tutacagimiz objeler
+    aslinda birer objeydi ??? listEntity tipinde olan objelerdi gidiyo class larini olusturuyor field larini veriyor otomatik olarak bunu yapiyor (Class Definition), birde manual secebiliyorsun kontrolu almak icin
+    
+AppDelegate te farkli olarak --> Core Data Stack kismi var (Projeyi olutururken core datayi tikledigimizden geldi)
+    *** Bir tane persistent container oluyor , bu gidiyor bizim database(week7CoreData) ile bizim kullanicagimiz yapi arasindaki bir katman ***
+    Yani bu container ile beraber bir obje uret sonra diyoruzki bu container a bu datayi kaydet, containerin birde contexti var
+    *** Containerin contexti var, diyoruz ki bu contextine, bu containerin contextine save diyoruz oda gidiyo db ye kaydediyor. ***
+    DB ve entity objeleri arasinda ki katman, araci gorevi goruyor yani persistent container.
+
+        *** Fatal error --> kritik yapilar veya senaryolarda uygulamanin istenilen gibi veya hic calismamasi durumlarini gozeterek kullanilan errordur.
+            Terminate edip bastan kisaca. Flow durunlarinda kritik data gelmediysede dusunulur. Bile bile crash yaptiririz.
+    
+    saveContext methodu --> db de kayit a.k.a objeler olusturuyoruz, bu kayitlari container araciligi ile save demezsek o kayitlar persist olmaz
+
+lazy var persistenContainer: NSPersistentContainer --> burada lazy ile yaratmasi demek, *** bu uygulama acildigi zaman memory de tutulmuyor demek,
+    
+    taa ki uygulamada save context yapilana kadar, o zaman memoryde yasamaya basliyor,
+    sonrasinda gelen {}() --> blogunun icinde ki kod calisiyor ve container return ediliyor sonrada kaydetme icin katman o aradaki katman olusturulmus oluyor
+    lazy nin bir olayi daha var --> *** persistentContainer birdaha initialize edilemiyor *** yasam dongusu --> ( init --> memory ),
+    diyelim degisiklik yaptik memoryde yasarken bu ama degismiyor, state i on off gibi, bu tamamen lazy den kaynakli
+    
+persistentContainer in lazy ile tanimlanmasi mantikli cunku yaratilmasi maliyetli bir olay, surekli surekli olusturulmasin ihtiyac duyuldugunda olusturulsun mantigi var
+
+genelde lazy variable olusturulma mantigi *** --> icerisinde bir obje ureticeksindir, o objeninde bir suru ayari vardir, data formati(timestamp convert edicek) oldugunu dusun,
+                                                date formati init ederken parametre pasladigini dusun, locali bu timezone bu gibi gibi . Bu data formatter i surekli surekli init
+                                                etmeye gerek yok, lazy ile olustur gec, diyelim timestamp gelmedi backEndden ozaman init olamaz, memory de yasayamaz, avantajida bunun gibi
+                                          *** --> Yani buyuk bir obje var, degistirilmiyecek, sadece kullanilicaginda init olsun, ve daha sonradan degistirilmesin
+    
+
+    
+
+
