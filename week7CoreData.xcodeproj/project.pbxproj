@@ -18,12 +18,12 @@
 		961516912976B0AD003BE2A5 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961516902976B0AD003BE2A5 /* ListViewModel.swift */; };
 		961516932976B118003BE2A5 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961516922976B118003BE2A5 /* ListModel.swift */; };
 		961516952976BF9B003BE2A5 /* ListViewControllerTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961516942976BF9B003BE2A5 /* ListViewControllerTableHelper.swift */; };
-		961516A02976F111003BE2A5 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615169E2976F111003BE2A5 /* ListCell.swift */; };
-		961516A12976F111003BE2A5 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9615169F2976F111003BE2A5 /* ListCell.xib */; };
 		961516A429772489003BE2A5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 961516A329772489003BE2A5 /* Kingfisher */; };
 		961516A729772670003BE2A5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 961516A629772670003BE2A5 /* Alamofire */; };
 		961516A929773927003BE2A5 /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961516A829773927003BE2A5 /* CharacterData.swift */; };
 		961516AB297771B2003BE2A5 /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961516AA297771B2003BE2A5 /* InternetManager.swift */; };
+		9646FD3D29783EE8005169FF /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646FD3B29783EE8005169FF /* ListCell.swift */; };
+		9646FD3E29783EE8005169FF /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9646FD3C29783EE8005169FF /* ListCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,10 +40,10 @@
 		961516902976B0AD003BE2A5 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		961516922976B118003BE2A5 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 		961516942976BF9B003BE2A5 /* ListViewControllerTableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerTableHelper.swift; sourceTree = "<group>"; };
-		9615169E2976F111003BE2A5 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
-		9615169F2976F111003BE2A5 /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		961516A829773927003BE2A5 /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		961516AA297771B2003BE2A5 /* InternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
+		9646FD3B29783EE8005169FF /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		9646FD3C29783EE8005169FF /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +124,8 @@
 		963A647729779005002BDD2E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				9615169F2976F111003BE2A5 /* ListCell.xib */,
-				9615169E2976F111003BE2A5 /* ListCell.swift */,
+				9646FD3B29783EE8005169FF /* ListCell.swift */,
+				9646FD3C29783EE8005169FF /* ListCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 				961516832976AE4E003BE2A5 /* Assets.xcassets in Resources */,
 				9615168F2976AEE5003BE2A5 /* Notlar in Resources */,
 				9615167E2976AE4D003BE2A5 /* Main.storyboard in Resources */,
-				961516A12976F111003BE2A5 /* ListCell.xib in Resources */,
+				9646FD3E29783EE8005169FF /* ListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,9 +222,9 @@
 				961516912976B0AD003BE2A5 /* ListViewModel.swift in Sources */,
 				961516812976AE4D003BE2A5 /* week7CoreData.xcdatamodeld in Sources */,
 				9615167B2976AE4C003BE2A5 /* ListViewController.swift in Sources */,
+				9646FD3D29783EE8005169FF /* ListCell.swift in Sources */,
 				961516952976BF9B003BE2A5 /* ListViewControllerTableHelper.swift in Sources */,
 				961516932976B118003BE2A5 /* ListModel.swift in Sources */,
-				961516A02976F111003BE2A5 /* ListCell.swift in Sources */,
 				961516772976AE4C003BE2A5 /* AppDelegate.swift in Sources */,
 				961516792976AE4C003BE2A5 /* SceneDelegate.swift in Sources */,
 				961516AB297771B2003BE2A5 /* InternetManager.swift in Sources */,

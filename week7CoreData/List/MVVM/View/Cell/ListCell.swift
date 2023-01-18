@@ -47,3 +47,4 @@ struct ListCellModel{
     let status: String
     let gender: String
 }
+
