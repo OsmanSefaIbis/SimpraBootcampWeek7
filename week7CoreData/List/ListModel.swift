@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import UIKit
+import CoreData
 
 protocol ListModelProtocol: AnyObject{
     
@@ -21,6 +23,10 @@ protocol ListModelProtocol: AnyObject{
 // Modelin icinde cache leme yapicagiz
 class ListModel{
     
+    // Persistent Container a AppDelegate ten erisicegiz --> context i saveToCoreData() tanimladik
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    
     // burada datalari tutucak DTO:Data Transfer Object, data modelimiz ile coredata modelimiz farkli bu durumlari gozetmen gerekiyor
     
     // burada iki farkli data modelimiz var biri CharacterData apiden decode ettigimiz digeride Core Data da tuttugumuz ListEntity
@@ -32,9 +38,6 @@ class ListModel{
     
     // ViewModel a haber vericek
     weak var delegate: ListModelProtocol?
-    
-    //lalala
-    
     
     // if internet varsa apiden istek at ve veri cek
     // else internet yoksa coreData dan al
@@ -49,20 +52,60 @@ class ListModel{
                 // data model katmanina geldi, view model katmanina delegate ile haber veriliyor
                 self.data = response.results ?? []
                 self.delegate?.didLiveDataFetch()
+                // Traverse data to store in Core Data via
+                for item in self.data{
+                    self.saveToCoreData(item)
+                }
             }
         }
         // internet aktif degil o yuzden Core Data fonksiyonlarini cagiriyoruz
         else{
-            
+            retrieveFromCoreData()
         }
         
     }
-    
-    private func saveToCoreData(){
-        // TODO:
+    // DB Input Operation
+    private func saveToCoreData( _ data: CharacterData){
+        let context = appDelegate.persistentContainer.viewContext
+        // typo hatasi ihtimali yuzunden optional donduruyo, swiftte bu hep var ***
+        if let entity = NSEntityDescription.entity(forEntityName: "ListEntity", in: context){
+            // DB Entity olusturduk sira object mapping kisminda
+            let listObject = NSManagedObject(entity: entity, insertInto: context)
+            // Field Setleme yapiyoruz , normalde burada changedData diye bir logic ekleyip API dan gelen datada bir degisiklik olan fieldlari sadece setlemek daha mantikli olur
+                listObject.setValue(data.id ?? 0, forKey: "id")
+                listObject.setValue(data.gender ?? "", forKey: "gender")
+                listObject.setValue(data.status ?? "", forKey: "status")
+                listObject.setValue(data.name ?? "", forKey: "name")
+                listObject.setValue(data.image ?? "", forKey: "imageUrl")
+            
+            // *** Hata firlatma riski var --> try catch exception is safe instead of a crash
+            do{
+                try context.save()
+            }catch{
+                print("ERROR: saveToCoreData() during CoreData Input operation")
+            }
+        }
     }
-    
+    // DB Output Operation
     public func retrieveFromCoreData(){
-        // TODO:
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<ListEntity>(entityName: "ListEntity")
+        
+        do {
+            let result = try context.fetch(request)
+            print("CoreData All Data count: \(result.count)")
+            // CoreDatadan Veri Cektik !!!
+            // ViewModel Katmanina delegate ile haber veriyoruz localden cektigimizi
+            self.databaseData = result
+            delegate?.didCacheDataFetch()
+            
+        } catch  {
+            // eger cache de data yoksa yine delegate ile haberliyoruz
+            print("ERROR: retrieveFromCoreData() during CoreData Output operation")
+            delegate?.didDataCouldntFetch()
+        }
+        
+        
     }
 }

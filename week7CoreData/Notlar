@@ -8,6 +8,9 @@ Core Data Database dosyasi projeye eklenmis durumda, tablolarin bulundugu dosyad
 
 Buraya veri atarken objeyi yaratip field lari dolduruyorsun sonrada save et diyorsun.
 
+
+
+
 Entity Mantigi var, Entity derken SQL deki Tablo mantigi gibi dusunebilirsin
 
     Attributes dedigi sutun(column) gibi dusun, burda isimlendirip tipini belirliyorsun
@@ -17,6 +20,10 @@ Entity Mantigi var, Entity derken SQL deki Tablo mantigi gibi dusunebilirsin
         Main Constraint olarak primary key mantiginda eklememiz gerekiyor cunku data cekildi 3 data cekildi belli bir id siralamasiyla, kullanici app kapa ac yapti yine ayni id ama farkli data geldi diyelim,
         bu durumda id si 1 olan iki tane kaydimiz var demek oluyor bu ambiguity e sebebiyet verir ondan dolayi main constraint ekliyoruz, primary key mantigi ( tekillestirme ), ekledik constrainti diyelim,
         ozaman ayni id ile gelen farkli data oldu diyelim bu durumda override edicek. Bildigin gibi yani the record must be unique for that field.
+        
+        
+        
+        
     
 
 Relational mantigi yine Core Data dada var, relationship adi altinda --> tablo adini yaziyosun sonra neye gore iliski kurulucaksa belirliyorsun
@@ -24,6 +31,10 @@ Relational mantigi yine Core Data dada var, relationship adi altinda --> tablo a
 Contraint eklerken sag dock ta Data Model Inspector da constraint kismina tekillestirmek istedigin fieldi yaziyorsun,
 Codegen secenegide --> uygulama kapa ac yaptiginda veya Xcode ac veya clean build yaptiginda diyelim, gidiyor arka tarafta bunun (listEntity) class larini olusturuyor, yani entity icinde tutacagimiz objeler
     aslinda birer objeydi ??? listEntity tipinde olan objelerdi gidiyo class larini olusturuyor field larini veriyor otomatik olarak bunu yapiyor (Class Definition), birde manual secebiliyorsun kontrolu almak icin
+    
+    
+    
+    
     
 AppDelegate te farkli olarak --> Core Data Stack kismi var (Projeyi olutururken core datayi tikledigimizden geldi)
     *** Bir tane persistent container oluyor , bu gidiyor bizim database(week7CoreData) ile bizim kullanicagimiz yapi arasindaki bir katman ***
@@ -35,6 +46,9 @@ AppDelegate te farkli olarak --> Core Data Stack kismi var (Projeyi olutururken 
             Terminate edip bastan kisaca. Flow durunlarinda kritik data gelmediysede dusunulur. Bile bile crash yaptiririz.
     
     saveContext methodu --> db de kayit a.k.a objeler olusturuyoruz, bu kayitlari container araciligi ile save demezsek o kayitlar persist olmaz
+    
+    
+    
 
 lazy var persistenContainer: NSPersistentContainer --> burada lazy ile yaratmasi demek, *** bu uygulama acildigi zaman memory de tutulmuyor demek,
     
@@ -45,10 +59,46 @@ lazy var persistenContainer: NSPersistentContainer --> burada lazy ile yaratmasi
     
 persistentContainer in lazy ile tanimlanmasi mantikli cunku yaratilmasi maliyetli bir olay, surekli surekli olusturulmasin ihtiyac duyuldugunda olusturulsun mantigi var
 
+
+
+
+
 genelde lazy variable olusturulma mantigi *** --> icerisinde bir obje ureticeksindir, o objeninde bir suru ayari vardir, data formati(timestamp convert edicek) oldugunu dusun,
                                                 date formati init ederken parametre pasladigini dusun, locali bu timezone bu gibi gibi . Bu data formatter i surekli surekli init
                                                 etmeye gerek yok, lazy ile olustur gec, diyelim timestamp gelmedi backEndden ozaman init olamaz, memory de yasayamaz, avantajida bunun gibi
                                           *** --> Yani buyuk bir obje var, degistirilmiyecek, sadece kullanilicaginda init olsun, ve daha sonradan degistirilmesin
+                                          
+                                          
+                                          
+*** Anlik veri durumunda(Borsa, Kripto) herzaman API dan gelen verilerin islenmesini onceliklendir, ama son care olarak CoreData dan faydalanabilirsin
+*** Offline veriler ile uygulamanin calismasi gerekirse --> CoreData, senaryosal olarak kurulan yapi degiskenlik gosterir, gelistirilmesi ihtiyaca goredir
+                                          
+                                          
+- API dan fetch data yaptik, decode edip modele pasladik, simdi ki kisim Core Data ya nasil kaydediyoruz
+
+    Persistent Container AppDelegate in icinde bulunmakta ve bizim ilk oncelikle Model katmaninda AppDelegate e erismemiz gerekiyor --> o kisma bak ListModel
+        
+    Model Katmaninda saveToCoreData Methodunda
+       
+        Context tanimladik
+        Entity tanimlamamiz gerekiyor o yuzden import CoreData yapmamiz gerekiyordu
+        *** NSManagedObject olusturduk cunku Db de bu objeler tutuluyor
+        en son context.save() diyoruz
+            !!! Ama hata firlatabilir --> handle it, hatta mapplerkende bir problem olabilir blogun hepsini alsan daha garanti
+    
+    Model Katmaninda fetchData fonksiyonu Internet varsa CoreData ya kaydediyor, yoksa CoreData dan cekiyor
+    
+- Internet YOK !!! --> CoreData dan veri cekmemiz gerekiyor bu durumda nasil ilerliyoruz
+
+    Model Katmaninda --> retrieveFromCoreData() metodunda veri cekerken ayni sekilde DB I/O islemi oldugu icin yine context tanimlamiz gerekiyor
+    
+    Core Datadan Data cekmek icin *** NSFetchRequest tipinde objeden faydalaniyoruz
+        
+        Bu requeste *** predicate verebiliyoruz yani istedigimiz datalarin donmesi icin logic paslayabiliyoruz, misal: id si 15 den buyuk olanlari getir gibi gibi
+        
+        context.fetch(request) --> try catch icinde datalari cektik Core Datadan
+    
+        
     
 
     

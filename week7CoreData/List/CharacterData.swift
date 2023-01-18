@@ -11,6 +11,7 @@ struct ApiData: Decodable{
     let results: [CharacterData]?
 }
 struct CharacterData: Decodable{
+    let id: Int?
     let name, status, gender: String?
     let image: String?
 }
