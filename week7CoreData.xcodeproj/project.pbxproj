@@ -82,12 +82,12 @@
 				9615168D2976AEA1003BE2A5 /* List */,
 				961516762976AE4C003BE2A5 /* AppDelegate.swift */,
 				961516782976AE4C003BE2A5 /* SceneDelegate.swift */,
+				961516AA297771B2003BE2A5 /* InternetManager.swift */,
 				9615167C2976AE4D003BE2A5 /* Main.storyboard */,
-				961516822976AE4E003BE2A5 /* Assets.xcassets */,
 				961516842976AE4E003BE2A5 /* LaunchScreen.storyboard */,
+				961516822976AE4E003BE2A5 /* Assets.xcassets */,
 				961516872976AE4E003BE2A5 /* Info.plist */,
 				9615167F2976AE4D003BE2A5 /* week7CoreData.xcdatamodeld */,
-				961516AA297771B2003BE2A5 /* InternetManager.swift */,
 			);
 			path = week7CoreData;
 			sourceTree = "<group>";
@@ -95,15 +95,47 @@
 		9615168D2976AEA1003BE2A5 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				9615167A2976AE4C003BE2A5 /* ListViewController.swift */,
-				961516902976B0AD003BE2A5 /* ListViewModel.swift */,
-				961516922976B118003BE2A5 /* ListModel.swift */,
-				961516942976BF9B003BE2A5 /* ListViewControllerTableHelper.swift */,
-				9615169E2976F111003BE2A5 /* ListCell.swift */,
-				9615169F2976F111003BE2A5 /* ListCell.xib */,
-				961516A829773927003BE2A5 /* CharacterData.swift */,
+				963A647529778F8F002BDD2E /* MVVM */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		963A647529778F8F002BDD2E /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				963A647829779086002BDD2E /* APIDataModel */,
+				963A647629778FD5002BDD2E /* View */,
+				961516922976B118003BE2A5 /* ListModel.swift */,
+				961516902976B0AD003BE2A5 /* ListViewModel.swift */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		963A647629778FD5002BDD2E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				963A647729779005002BDD2E /* Cell */,
+				9615167A2976AE4C003BE2A5 /* ListViewController.swift */,
+				961516942976BF9B003BE2A5 /* ListViewControllerTableHelper.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		963A647729779005002BDD2E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9615169F2976F111003BE2A5 /* ListCell.xib */,
+				9615169E2976F111003BE2A5 /* ListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		963A647829779086002BDD2E /* APIDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				961516A829773927003BE2A5 /* CharacterData.swift */,
+			);
+			path = APIDataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
