@@ -43,7 +43,7 @@ class ListModel{
     // else internet yoksa coreData dan al
     func fetchData(){
         if InternetManager.shared.isInternetActive(){
-            AF.request("https://rickandmortyapi.com/api/character/?page=1").responseDecodable(of: ApiData.self){ (res) in
+            AF.request("https://rickandmortyapi.com/api/character/?page=2").responseDecodable(of: ApiData.self){ (res) in
                 guard let response = res.value
                 else{
                     self.delegate?.didDataCouldntFetch()
